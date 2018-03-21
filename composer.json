@@ -1,0 +1,24 @@
+{
+    "name": "yzm/upload",
+    "description": "Upload component",
+    "type": "library",
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "php": ">=5.4.0"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "guanguans",
+            "email": "yzmguanguan@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-4": {
+            "Yzm\\UploadFile\\": "src/"
+        }
+    }
+}
