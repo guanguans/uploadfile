@@ -3,7 +3,7 @@
  * 文件上传类
  * @author  guanguans <yzmguanguan@gmail.com>
  * demo:
- * 
+ *
 	require_once __DIR__ . '/vendor/autoload.php';
 
 	use Yzm\UploadFile\UploadFile;
@@ -26,11 +26,11 @@
 		print_r($upload->getErrorMsg());
 		die;
 	}
- * 
+ *
  */
 namespace Yzm\UploadFile;
 
-class UploadFile 
+class UploadFile
 {
     private $config =   array(
         'maxSize'           =>  -1,    // 上传文件的最大值
@@ -45,7 +45,7 @@ class UploadFile
         'thumbSuffix'       =>  '',
         'thumbPath'         =>  '',// 缩略图保存路径
         'thumbFile'         =>  '',// 缩略图文件名
-        'thumbExt'          =>  '',// 缩略图扩展名        
+        'thumbExt'          =>  '',// 缩略图扩展名
         'thumbRemoveOrigin' =>  false,// 是否移除原图
         'thumbType'         =>  1, // 缩略图生成方式 1 按设置大小截取 0 按原图等比例缩略
         'zipImages'         =>  false,// 压缩图片文件上传
@@ -82,7 +82,7 @@ class UploadFile
     public function __isset($name){
         return isset($this->config[$name]);
     }
-    
+
     /**
      * 架构函数
      * @access public
@@ -113,7 +113,7 @@ class UploadFile
             $info   = getimagesize($file['tmp_name']);
             if(false === $info || ('gif' == strtolower($file['extension']) && empty($info['bits']))){
                 $this->error = '非法图像文件';
-                return false;                
+                return false;
             }
         }
         if(!move_uploaded_file($file['tmp_name'], $this->autoCharset($filename,'utf-8','gbk'))) {
@@ -144,9 +144,9 @@ class UploadFile
                     if(1 == $this->thumbType){
                         Image::thumb2($filename,$thumbPath.$thumbname.'.'.$thumbExt,'',$thumbWidth[$i],$thumbHeight[$i],true);
                     }else{
-                        Image::thumb($filename,$thumbPath.$thumbname.'.'.$thumbExt,'',$thumbWidth[$i],$thumbHeight[$i],true);                        
+                        Image::thumb($filename,$thumbPath.$thumbname.'.'.$thumbExt,'',$thumbWidth[$i],$thumbHeight[$i],true);
                     }
-                    
+
                 }
                 if($this->thumbRemoveOrigin) {
                     // 生成缩略图之后删除原图
