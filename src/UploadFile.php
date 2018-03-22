@@ -1,42 +1,38 @@
 <?php
 /**
- * 文件上传类
+ * 通用文件上传类
  * @author  guanguans <yzmguanguan@gmail.com>
  * demo:
  *
-	require_once __DIR__ . '/vendor/autoload.php';
+	require_once '../vendor/autoload.php';
 
-	use Yzm\UploadFile\UploadFile;
+    use Guanguans\UploadFile;
 
-	$upload = new UploadFile();
-	$upload->maxSize       = 1*1024*1024; //默认为-1，不限制上传大小
-	$upload->savePath      = './upload/'; //上传根目录
-	$upload->saveRule      = 'uniqid';    //上传文件的文件名保存规则
-	$upload->uploadReplace = true;        //如果存在同名文件是否进行覆盖
-	$upload->autoSub       = true;        //上传子目录开启
-	$upload->subType       = 'date';      //上传子目录命名规则
-	$upload->allowExts     = array('jpg', 'jpeg', 'gif', 'bmp'); // 允许类型
+    $upload = new UploadFile();
+    $upload->maxSize       = 1*1024*1024;    // 默认为-1，不限制上传大小
+    $upload->savePath      = './upload/';    // 上传根目录
+    $upload->saveRule      = 'uniqid';       // 上传文件的文件名保存规则
+    $upload->uploadReplace = true;           // 如果存在同名文件是否进行覆盖
+    $upload->autoSub       = true;           // 上传子目录开启
+    $upload->subType       = 'date';         // 上传子目录命名规则
+    $upload->allowExts     = ['jpg', 'png']; // 允许类型
 
-	if ($upload->upload()) {
-		echo '<pre>';
-		print_r($upload->getUploadFileInfo());
-		die;
-	} else {
-		echo '<pre>';
-		print_r($upload->getErrorMsg());
-		die;
-	}
+    if ($upload->upload()) {
+        var_dump($upload->getUploadFileInfo());
+    } else {
+        var_dump($upload->getErrorMsg());
+    }
  *
  */
-namespace Yzm\UploadFile;
+namespace Guanguans;
 
 class UploadFile
 {
-    private $config =   array(
+    private $config = [   
         'maxSize'           =>  -1,    // 上传文件的最大值
         'supportMulti'      =>  true,    // 是否支持多文件上传
-        'allowExts'         =>  array(),    // 允许上传的文件后缀 留空不作后缀检查
-        'allowTypes'        =>  array(),    // 允许上传的文件类型 留空不做检查
+        'allowExts'         =>  [],    // 允许上传的文件后缀 留空不作后缀检查
+        'allowTypes'        =>  [],    // 允许上传的文件类型 留空不做检查
         'thumb'             =>  false,    // 使用对上传图片进行缩略图处理
         'imageClassPath'    =>  'ORG.Util.Image',    // 图库类包路径
         'thumbMaxWidth'     =>  '',// 缩略图最大宽度
@@ -59,7 +55,7 @@ class UploadFile
         'uploadReplace'     =>  false,// 存在同名是否覆盖
         'saveRule'          =>  'uniqid',// 上传文件命名规则
         'hashType'          =>  'md5_file',// 上传文件Hash规则函数名
-    );
+    ];
 
     // 错误信息
     private $error = '';
@@ -88,7 +84,7 @@ class UploadFile
      * @access public
      * @param array $config  上传参数
      */
-    public function __construct($config=array()) {
+    public function __construct($config=[]) {
         if(is_array($config)) {
             $this->config   =   array_merge($this->config,$config);
         }
@@ -109,7 +105,7 @@ class UploadFile
             return false;
         }
         // 如果是图像文件 检测文件格式
-        if( in_array(strtolower($file['extension']),array('gif','jpg','jpeg','bmp','png','swf'))) {
+        if( in_array(strtolower($file['extension']), ['gif','jpg','jpeg','bmp','png','swf'])) {
             $info   = getimagesize($file['tmp_name']);
             if(false === $info || ('gif' == strtolower($file['extension']) && empty($info['bits']))){
                 $this->error = '非法图像文件';
@@ -120,7 +116,7 @@ class UploadFile
             $this->error = '文件上传保存错误！';
             return false;
         }
-        if($this->thumb && in_array(strtolower($file['extension']),array('gif','jpg','jpeg','bmp','png'))) {
+        if($this->thumb && in_array(strtolower($file['extension']), ['gif','jpg','jpeg','bmp','png'])) {
             $image =  getimagesize($filename);
             if(false !== $image) {
                 //是图像文件生成缩略图
@@ -189,7 +185,7 @@ class UploadFile
                 return false;
             }
         }
-        $fileInfo   = array();
+        $fileInfo   = [];
         $isUpload   = false;
 
         // 获取上传的文件信息
@@ -257,7 +253,7 @@ class UploadFile
         }
         //过滤无效的上传
         if(!empty($file['name'])) {
-            $fileArray = array();
+            $fileArray = [];
             if(is_array($file['name'])) {
                $keys = array_keys($file);
                $count	 =	 count($file['name']);
@@ -268,7 +264,7 @@ class UploadFile
             }else{
                 $fileArray[] =  $file;
             }
-            $info =  array();
+            $info =  [];
             foreach ($fileArray as $key=>$file){
                 //登记上传文件的扩展信息
                 $file['extension']  = $this->getExt($file['name']);
@@ -303,7 +299,7 @@ class UploadFile
      * @return array
      */
     private function dealFiles($files) {
-        $fileArray  = array();
+        $fileArray  = [];
         $n          = 0;
         foreach ($files as $key=>$file){
             if(is_array($file['name'])) {

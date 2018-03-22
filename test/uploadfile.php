@@ -1,15 +1,5 @@
-# 通用文件上传类
-
-## 安装
-
-``` sh
-composer require guanguans/uploadfile
-```
-
-## 使用
-
-``` php
 <?php
+
 require_once '../vendor/autoload.php';
 
 use Guanguans\UploadFile;
@@ -24,13 +14,7 @@ $upload->subType       = 'date';         // 上传子目录命名规则
 $upload->allowExts     = ['jpg', 'png']; // 允许类型
 
 if ($upload->upload()) {
-    var_dump($upload->getUploadFileInfo());
+	var_dump($upload->getUploadFileInfo());
 } else {
-    var_dump($upload->getErrorMsg());
+	var_dump($upload->getErrorMsg());
 }
-```
-
-## License
-
-[MIT](./LICENSE)
-
