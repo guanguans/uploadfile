@@ -1,5 +1,9 @@
 # 通用文件上传类
 
+<p align="center">
+![Travis](https://img.shields.io/travis/USER/REPO.svg)
+</p>
+
 ## 安装
 
 ``` sh
