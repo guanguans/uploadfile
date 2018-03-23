@@ -1,7 +1,8 @@
 # 通用文件上传类
 
 <p align="center">
-![Travis](https://img.shields.io/travis/USER/REPO.svg)
+    <a href="https://packagist.org/packages/guanguans/uploadfile"><img src="https://img.shields.io/packagist/v/guanguans/uploadfile.svg" alt="Version"></a>
+    <a href="https://packagist.org/packages/guanguans/uploadfile"><img src="https://img.shields.io/packagist/l/guanguans/uploadfile.svg" alt="License"></a>
 </p>
 
 ## 安装
