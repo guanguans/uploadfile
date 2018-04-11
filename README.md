@@ -1,11 +1,11 @@
-# 通用文件上传类
-
 <p align="center">
     <a href="https://packagist.org/packages/guanguans/uploadfile"><img src="https://img.shields.io/packagist/v/guanguans/uploadfile.svg" alt="Version"></a>
     <a href="https://packagist.org/packages/guanguans/uploadfile"><img src="https://img.shields.io/packagist/l/guanguans/uploadfile.svg" alt="License"></a>
     <a href="https://packagist.org/packages/guanguans/uploadfile"><img src="https://img.shields.io/packagist/php-v/guanguans/uploadfile.svg" alt="PHP version"></a>
     <a href="https://github.com/guanguans/uploadfile/tags"><img src="https://img.shields.io/github/tag/guanguans/uploadfile.svg" alt="GitHub tag"></a>
 </p>
+
+# 通用文件上传类
 
 ## 安装
 
@@ -17,8 +17,6 @@ composer require guanguans/uploadfile
 
 ``` php
 <?php
-require_once '../vendor/autoload.php';
-
 use Guanguans\UploadFile;
 
 $upload = new UploadFile();
@@ -31,9 +29,9 @@ $upload->subType       = 'date';         // 上传子目录命名规则
 $upload->allowExts     = ['jpg', 'png']; // 允许类型
 
 if ($upload->upload()) {
-    var_dump($upload->getUploadFileInfo());
+    $upload->getUploadFileInfo();
 } else {
-    var_dump($upload->getErrorMsg());
+    $upload->getErrorMsg();
 }
 ```
 
