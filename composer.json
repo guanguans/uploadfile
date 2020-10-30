@@ -1,6 +1,6 @@
 {
     "name": "guanguans/uploadfile",
-    "description": "\u0016Universal upload class",
+    "description": "通用文件上传类",
     "type": "library",
     "require": {
         "php": ">=5.4"
